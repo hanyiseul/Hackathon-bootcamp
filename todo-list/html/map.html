@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나만의 TODO 리스트!</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="title">
+    <h1>My To-Do List</h1>
+    <p class="desc">할 일을 찾아볼까요?! ✨</p>
+  </header>
+  <main>
+    <section class="card">
+      
+      <div id="map" class="map"></div>
+      
+      <table class="infoTable">
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>주소</th>
+          </tr>
+        </thead>
+      </table>
+
+      <div class="buttonWrap">
+        <a href="home.html" class="button">돌아가기</button>
+      </div>
+    </section>
+    <section>
+      <div class="tip">💡 Tip: 대문자 P도 할 수 이쒀요!! 일정 관리 할 수 이쒀요!!</div>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>© 2026 한경 부트캠프 | 한이슬</p>
+  </footer>
+</body>
+<script src="../assets/js/map.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([37.5597, 126.9640], 16);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+   const tableBody = document.querySelector('.infoTable');
+
+    mapData.forEach(item => {
+        L.marker([item.lat, item.lng])
+            .addTo(map)
+            .bindPopup("<b>" + item.bank_name + "</b><br>" + item.branch_name);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = 
+            "<td class='map.name'>" + item.name + "</td>" +
+            "<td>" + item.phone + "</td>" +
+            "<td>" + item.address + "</td>" ;
+        
+        tableBody.appendChild(tr);
+    });
+
+</script>
+</html>

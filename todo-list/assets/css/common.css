@@ -1,0 +1,92 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+/* reset */
+body {position: relative; min-height: 100vh; padding: 0; margin: 0; font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; color: #333; background: linear-gradient(135deg,#ead6f5 0%,#e6d7f7 40%,#d9e6ff 100%);}
+img{width: 100%; height: auto;}
+ul, ol {list-style: none; margin: 0; padding: 0;}
+p {margin: 0;}
+a {color: #333; text-decoration: none;}
+h1 {margin: 0;}
+input {outline: none;}
+button {outline: none; border: none; background: none; cursor: pointer;}
+.buttonWrap .button {height: 100%; padding: 5px 10px; color: white; font-weight: 600; border-radius: 8px; background: linear-gradient( 135deg, #ff5abf 0%, #c95cff 50%, #9f6bff 100%); transition: 0.3s all; box-sizing: border-box;}
+.buttonWrap .button:hover {background: linear-gradient(90deg, #ff4da6, #b44cff, #7a5cff);}
+
+/* header */
+.title {text-align: center; margin: 50px 0 0;}
+.title h1 {position:relative; font-size: 48px; font-weight: 700; background: linear-gradient(90deg, #ff4da6, #b44cff, #7a5cff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+.title h1::before {content: ""; position: absolute; left: 50%; top: -30px; z-index: 1000; display: block; width: 50px; height: 50px; margin-left: -200px; background: url(../images/star1.png) no-repeat center / 100%;}
+.title h1::after {content: ""; position: absolute; right: 50%; bottom: -10px; z-index: 1000; display: block; width: 50px; height: 50px; margin-right: -210px; background: url(../images/star2.png) no-repeat center / 100%;}
+.title h1 .desc {margin: 15px 0 0; color: #666; font-size: 20px;}
+
+/* footer */
+.footer {margin: 50px 0; color: #888; font-size: 10px; text-align: center;}
+
+/* section - bottom button */
+.buttonWrap {margin-top: 20px; text-align: center;}
+.buttonWrap .button {display: inline-block; padding: 10px 20px; font-size: 20px;}
+.buttonWrap .button + .button {color: #7a5cff; margin-left: 5px; background: linear-gradient(135deg,#ead6f5 0%,#e6d7f7 40%,#d9e6ff 100%);}
+.buttonWrap .button + .button:hover {color: #fff; background: linear-gradient(90deg, #ff4da6, #b44cff, #7a5cff);}
+ 
+/* main */
+section {width: 80%; margin: 30px auto 0; }
+.card {padding: 25px; border-radius: 15px; background: #fdf7fa; box-shadow: 0 8px 20px rgba(255, 90, 200, 0.35);}
+.noData img {width: 50px; height: auto;}
+
+/* main - form */
+.form {display: flex; width: 100%; font-size: 0; text-align: center;}
+.form input {width: 100%; font-size: 20px; padding: 10px 20px; border: 1px solid #7a5cff; border-radius: 8px; transition: 0.3s all; box-sizing: border-box;}
+.form input:focus {border-color: #ff4da6;}
+.form .buttonWrap {display: inline-block; width: calc(25% - 5px); max-width: 100px; height: 45px; margin: 0 0 0 5px; vertical-align: top;}
+.form .buttonWrap .button {width: 100%; height: 100%; padding: 0; font-size: 14px; box-shadow:0 8px 20px rgba(255, 90, 200, 0.35);}
+
+/* main - banner */
+.banner {margin-top: 20px; padding: 20px; color: #8a42ff; font-size: 20px; font-weight: bold; text-align: center; border: 2px solid #f2a6c6; border-radius: 8px; background-color: #f6eef6; box-shadow: 0 6px 18px rgba(0,0,0,0.04);}
+
+/* main - todo */
+.todo .filter {display: flex; align-items: center; justify-content: space-around; gap: 10px; margin: 30px 0 0;}
+.todo .filter li {width: 100%; color: #333; font-size: 20px; text-align: center;}
+.todo .filter li button {width: 100%; height: 100%; padding: 10px 0; border: 2px solid #f3c4dc; border-radius: 8px; background: #fff; vertical-align: middle; overflow: hidden; transition: 0.2s all;}
+.todo .filter li button.active {color:#fff; border-radius: 8px; background: linear-gradient(135deg, #ff5abf 0%, #c95cff 50%, #9f6bff 100%); overflow: hidden;}
+.todo .filter li button:hover {box-shadow:0 8px 10px rgba(226, 213, 237, 0.35);}
+.todo .noData {margin-top: 20px; text-align: center;}
+.todo .noData span {display: block; margin-top: 10px; color: #777; font-size: 14px;}
+.todoList {margin-top: 20px;}
+.todoList li {position: relative;}
+.todoList li:not(:first-child) {margin-top: 10px;}
+.todoList input {position: absolute; top: 50%; left: 20px; width: 20px; height: 20px; margin: 0; border: 1px solid #9f6bff; border-radius: 50%; background: #fff; transform: translateY(-50%); -webkit-appearance: none; appearance: none;}
+.todoList input:checked {background: #9f6bff;}
+.todoList input:checked::after { content: '✔'; display: inline-block; width: 100%; color: #fff; text-align: center;}
+.todoList input:checked + label {color: #c9a8ff; text-decoration: line-through; background: #c9a8ff55;}
+.todoList label {display: block; width: 100%; padding: 15px 20px 15px 50px; border: 2px solid #c9a8ff; border-radius: 8px; box-sizing: border-box; background: #fff;}
+.todoList label:hover {box-shadow:0 8px 10px rgba(226, 213, 237, 0.35);}
+
+/* main - tip */ 
+.tip {color: #555; font-size: 14px; text-align: center;}
+
+/* dashboard - countBox */
+.countBox {display: flex; justify-content: space-around; gap: 10px;}
+.countBox [class$="Box"] {border: 2px solid #f3c4dc; width: 100%; border-radius: 16px; padding: 20px;}
+.countBox [class$="Box"] .title {display: block; margin: 0; font-size: 12px; text-align: left;}
+.countBox [class$="Box"] .count {display: block; margin: 10px 0 0; color: #f3c4dc; font-size: 36px; font-weight: bold; text-align: center;}
+.countBox .ingBox {border-color: #c9a8ff;}
+.countBox .ingBox .count {color: #c9a8ff;}
+.countBox .endBox {border-color: #ff5abf;}
+.countBox .endBox .count {color: #ff5abf;}
+.countBox .endperBox {border-color: #9f6bff;}
+.countBox .endperBox .count {color: #9f6bff;}
+
+/* dashboard - chart */
+.chartBox {display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 15px; width: 60%; margin: 30px auto 0;}
+.chartBox .chartTitle {color: #333; font-size: 16px; font-weight: bold;}
+.chartBox .chart {margin: 0 auto; height: 400px;}
+
+/* map */
+.map {width: 100%; height: 400px; margin: 0; border-radius: 10px;}
+.infoTable {border: 1px solid red; width: 100%; margin-top: 20px; border-collapse: collapse;}
+.infoTable th, 
+.infoTable td {padding: 10px; border: 1px solid #ccc;}
+.infoTable th {text-align: center; font-weight: 600; background: #f5f5f5;}
+.infoTable td:first-child {text-align: center;}
+
+/* toast */
+.toast {position: absolute; top: 50%; left: 50%; padding: 10px 30px; transform: translateX(-50%) translateY(-50%); display: inline-block; width: 300px; color: #9f6bff; font-size: 14px; text-align: center; border-radius: 10px; background: #f3c4dc; transition: 0.3s all; box-shadow: 0 8px 3px rgba(255, 90, 200, 0.35);}

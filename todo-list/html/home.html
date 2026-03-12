@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나만의 TODO 리스트!</title>
+  <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+  <header class="title">
+    <h1>My To-Do List</h1>
+    <p class="desc">오늘 할 일을 기록하고 완료해보세요! ✨</p>
+  </header>
+  <main>
+    <section class="card">
+      <div class="form">
+        <input type="text" class="input">
+        <div class="buttonWrap">
+          <button type="button" class="button">+ 추가</button>
+        </div>
+      </div>
+      <div id="banner" class="banner">✨ 첫 할 일을 추가해보세요!</div>
+      <div id="todo" class="todo"></div>
+
+      <div class="buttonWrap">
+        <button type="button" class="button submit">분석하기</button>
+      </div>
+    </section>
+    <section>
+      <div class="tip">💡 Tip: 대문자 P도 할 수 이쒀요!! 일정 관리 할 수 이쒀요!!</div>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>© 2026 한경 부트캠프 | 한이슬</p>
+  </footer>
+</body>
+<script src="../assets/js/todo.js"></script>
+<script>
+  // 입력 받을 input value값 정의
+  const todoItem = []; // 이따가 등록된 할일들을 객체로 등록할거니까 배열로 선언!!
+  // 토스트 팝업 만든거
+  const message = document.createElement("div");
+  message.classList.add('toast');
+
+  // 목록 필터 함수
+  const filter = () => {
+    const btns = document.querySelectorAll(".filter button");
+    const filterAll = document.querySelector("#all");
+    const filterIng = document.querySelector("#ing");
+    const filterEnd = document.querySelector("#end");
+    const items = document.querySelectorAll(".todoList li");
+
+    // 버튼 클릭시 효과
+    btns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        btns.forEach(item => item.classList.remove("active")); // 버튼 상태 전체 초기화
+        btn.classList.add("active");
+      });
+    });
+
+    // 전체
+    filterAll.addEventListener("click", () => {
+      const items = document.querySelectorAll(".todoList li");
+      items.forEach(item => {
+        item.style.display = 'block';
+      });
+    });
+
+    // 완료
+    filterEnd.addEventListener("click", () => {
+      const items = document.querySelectorAll(".todoList li");
+      items.forEach(item => {
+        if(item.querySelector(".input").checked) { // 인풋이 체크 되어 있으면
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+
+    // 진행
+    filterIng.addEventListener("click", () => {
+      const items = document.querySelectorAll(".todoList li");
+      items.forEach(item => {
+        if(item.querySelector(".input").checked) {
+          item.style.display = "none";
+        } else {
+          item.style.display = "block";
+        }
+      });
+    });
+  }
+
+  // 입력값 목록에 추가하기
+  const register = () => {
+    const input = document.querySelector(".form input");
+    const btn = document.querySelector(".form .button");
+    const li = document.createElement("li");
+    const todoWrap = document.querySelector("#todo"); 
+
+
+    btn.addEventListener("click", () => { // 추가 버튼 누르면
+      const value = input.value; // 인풋 입력값 가져오기
+      if(value === "") return; // 입력값 없으면 리턴
+
+      // 기존 데이터 있을때 없을때 예외처리
+      if(document.querySelector(".todoList")) { // todoList 목록이 이미 있다면
+        // 기존 데이터들이랑 아이디값 안겹치게 하기
+        // 겹치면... 할 일 선택했을 때 다른것도 같이 선택될 수 있음.........
+        const index = document.querySelectorAll(".todoList li").length; 
+
+        li.innerHTML = `
+          <input type="checkbox" class="input" id="todo${index}" name="${index}">
+          <label for="todo${index}">${value}</label>
+        `;
+        document.querySelector(".todoList").appendChild(li); // 리스트 추가!
+        
+        message.innerHTML = `
+          <span class="toast">할일이 추가되었어요</span>
+        `
+        document.querySelector("body").appendChild(message)
+        setTimeout(() => {
+          document.querySelector("body").removeChild(message)
+        }, 2000);
+      } else { // todoList 목록이 없으면 
+        // 데이터 없으면 처음부터 불러오기
+        todoWrap.innerHTML = `
+          <ul class="filter">
+            <li><button type="button" id="all" class="active">전체</button></li>
+            <li><button type="button" id="ing">진행</button></li>
+            <li><button type="button" id="end">완료</button></li>
+          </ul>
+          <ul class="todoList"> 
+            <li>
+              <input type="checkbox" class="input" id="todo0" name="0">
+              <label for="todo0">${value}</label>
+            </li>
+
+          </ul>
+        `;
+        filter(); // 필터 버튼을 새로 장착했으니 필터 함수 실행해줘야됨
+        document.querySelector(".submit").style.display = "inline-block"; // 할일 생겼으니까 분석 버튼도 생겨야됨
+        
+        
+        message.innerHTML = `
+          <span class="toast">첫 할일이 등록되었어요!!!</span>
+        `
+        document.querySelector("body").appendChild(message)
+        setTimeout(() => {
+          document.querySelector("body").removeChild(message)
+        }, 2000);
+      
+      }
+      input.value = ""; // 인풋 초기화
+    });
+  }
+
+  const submit = () => {
+    const btnSubmit = document.querySelector(".button.submit");
+
+    btnSubmit.addEventListener("click", () => { // 분석하기 버튼 누르면?
+      const todoContent = document.querySelectorAll(".todoList li");
+      todoContent.forEach(item => {
+        // 데이터 수집 : 로컬스토리지에 보낼 데이터 정의
+        const todoData = {
+          id: item.querySelector("input").id, // "할일 아이디값" : "input의 아이디값"
+          content: item.querySelector("label").textContent, // "할일 내용" : "label의 텍스트 내용"
+          completed:  item.querySelector("input").checked // "완료 여부" : input 체크여부 
+        }
+        todoItem.push(todoData);
+      });
+    
+      // 데이터 전달 : localStorage에 데이터를 저장하여 다른 페이지에서도 해당 데이터를 사용할 수 있게 함
+      localStorage.setItem("todoResult", JSON.stringify(todoItem)); // localStorage key:value 저장
+      location.href = "dashboard.html" // 데이터 전달 후 result 페이지로 이동
+    });
+
+  }
+  submit();
+
+ // 데이터 로딩 : todoList 템플릿 만들기
+  const todoList = () => {
+    // id값은 이 페이지에서 단 한개이기 때문에 querySelector 사용
+    const todoWrap = document.querySelector("#todo"); 
+    const banner = document.querySelector("#banner");
+    
+    if(todo.length > 0) { // 불러온 json에서 할일이 1개 이상일 경우
+      banner.textContent = "🔥 잘하고 있어요!";
+      let todoInner = ""; // html 담을 변수 정의
+      todoInner += `
+        <ul class="filter">
+          <li><button type="button" id="all" class="active">전체</button></li>
+          <li><button type="button" id="ing">진행</button></li>
+          <li><button type="button" id="end">완료</button></li>
+        </ul>
+        <ul class="todoList"> 
+      `
+      todoInner +=  `
+        ${todo.map((item, index) => {
+          return `
+            <li>
+              <input type="checkbox" class="input" id="${item.id}" name="${index}"/>
+              <label for="${item.id}">${item.content}</label>
+            </li>
+          `
+        }).join(" ")}   
+      `
+      todoInner += '</ul>'
+      todoWrap.innerHTML = todoInner;
+      filter(); // 필터 설정 함수
+    } else { // 불러온 json에서 할일이 0개일 경우
+      banner.textContent = "✨ 첫 할 일을 추가해보세요!";
+      todoWrap.innerHTML = `
+        <div class="noData">
+          <img src="../assets/images/note.png" />
+          <span>할 일을 추가해보세요!</span> 
+        </div>
+      `
+      document.querySelector(".submit").style.display = "none"; // 할일 없으니까 분석하기 버튼 숨기기
+    } 
+    register(); // todo 체크 한번 해주고 등록 함수 실행!
+  }
+  todoList();
+
+
+</script>
+</html>
