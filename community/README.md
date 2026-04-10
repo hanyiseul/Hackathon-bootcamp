@@ -15,7 +15,7 @@
 Cloudflare + GCP
 
 ```
-https://your-domain.com
+https://plugins-student-dressing-ids.trycloudflare.com/
 ```
 
 ---
@@ -25,10 +25,10 @@ https://your-domain.com
 프로젝트 실행 화면
 
 | 로그인 | 회원가입 | 전체 게시판 | 우리회사글 | 내글관리 | 등록 | 상세 | 수정 |
-|---|---|---|
-| ![](./screenshots/screenshots1.webp) | ![](./screenshots/screenshots2.webp) | ![](./screenshots/screenshots3.webp) | | ![](./screenshots/screenshots4.webp) | | ![](./screenshots/screenshots5.webp) | | ![](./screenshots/screenshots6.webp) | | ![](./screenshots/screenshots7.webp) | | ![](./screenshots/screenshots8.webp) |
+|---|---|---|---|---|---|---|---|
+| ![](./screenshots/screenshots1.webp) | ![](./screenshots/screenshots2.webp) | ![](./screenshots/screenshots3.webp) | ![](./screenshots/screenshots4.webp) | ![](./screenshots/screenshots5.webp) | ![](./screenshots/screenshots6.webp) | ![](./screenshots/screenshots7.webp) | ![](./screenshots/screenshots8.webp) |
 
-screenshots 폴더에 이미지 추가 후 연결 가능
+
 
 ---
 
