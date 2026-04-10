@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <form class="form" action="" id="signupForm">
+    <div class="input_wrap">
+      <label for="input_name">이름</label>
+      <input type="text" class="input" id="input_name">
+    </div>
+    <div class="input_wrap">
+      <label for="input_id">아이디</label>
+      <input type="text" class="input" id="input_id">
+    </div>
+    <div class="input_wrap">
+      <label for="input-pwd">비밀번호</label>
+      <input type="password" class="input" id="input_pwd">
+    </div>
+    <div class="input_wrap">
+      <label for="select_company">회사 선택</label>
+      <select name="type" id="select_company">
+        <option value="토스뱅크">토스뱅크</option>
+        <option value="한국경제신문">한국경제신문</option>
+        <option value="한국경제신문">3기풀스택</option>
+      </select>
+    </div>
+    
+    <div class="button_wrap">
+      <button tpye="button" id="btn_submit" onclick="signup(event);">회원가입</button>
+    </div>
+  </form>
+</body>
+<script>
+  /**
+   * 파이프라인
+   * 1. 데이터 로딩 : 클라이언트에 회원가입 입력 폼 송출
+   * 2. 데이터 수집 
+   *    - 회원가입 버튼 (btn_submit) 클릭시 회원가입 요청 처리 실행
+   *    - post 요청 보낼 입력한 값 수집
+   * 3. 데이터 처리
+   *    - 비동기통신을 사용하여 db에 회원가입 등록 요청
+   *    - 비밀번호는 암호화 하여 등록
+   *    - 회원가입 완료 후 로그인 페이지로 이동
+  */
+
+  // 회원가입에서 사용할 변수 정의
+  const inputs = {// 입력값 변수 정의
+    name: document.querySelector("#input_name"),
+    id: document.querySelector("#input_id"),
+    pwd: document.querySelector("#input_pwd"),
+    company: document.querySelector("#select_company")
+  }
+  
+  let isIdChecked = false; // 아이디 중복 체크 여부
+
+  
+  // 회원가입 요청 처리 함수
+  const signup = async (e) => {
+    e.preventDefault(); // 입력폼 새로고침 방지
+
+    // 버튼 클릭시 입력된 값 가져오기
+    const name = inputs.name.value;
+    const user_id = inputs.id.value;
+    const user_pwd = inputs.pwd.value;
+    const company = inputs.company.value;
+
+    try {
+      const respose = await fetch ("/api/signup", { // 해당 api 주소로 http 서버에 요청을 보냄
+        method: "post", // post 요청 보냄
+        headers: { "Content-Type": "application/json" }, // 이 요청은 json이람니다~ 알려줌
+        body: JSON.stringify({name, user_id, user_pwd, company}) // 요청할 내용을 json 형식으로 보냄
+      });
+
+      const data = await respose.json(); // 요청 완료된 데이터를 json으로 받음
+      
+      if (data.success) { // data의 성공메시지가 true일 경우
+        alert("회원가입이 완료되었어요!");
+        window.location.href = "/login"; // 회원가입 성공 후 로그인 페이지로 이동
+      } else { // data의 성공메시지가 false일 경우
+        alert("회원가입이 실패하였어요! 다시 확인해주세요!");
+      }
+    } catch (error) { // 네트워크 오류 등의 데이터 요청 실패 경우
+      console.error("프론트 error:", error);
+      alert("회원가입 중 오류가 발생되었습니다. 다시 시도해주세요!");
+    }
+  }
+
+  // 아이디 중복 체크 함수
+  const checkId = async () => {
+    const user_id = inputs.id.value;
+
+    try {
+      // 쿼리 파라미터(Query Parameter) : URL 뒤에 붙어서 서버로 데이터를 전달하는 값
+      // URL ? key=value
+      const response = await fetch(`/api/checkId?user_id=${user_id}`);
+      const data = await response.json();
+
+      // 아이디 중복 확인이 된다면 true
+      isIdChecked = true;
+
+      if(data.exists) { // 아이디가 존재한다면
+        document.getElementById("input_id").focus();
+        alert("이미 존재하는 아이디입니다.");
+        console.log(isIdChecked)
+      } else { // 아이디가 존재하지 않는다면
+        alert("사용 가능합니다.");
+      }
+    } catch (error) { // 데이터 조회 실패시
+      console.error("Error:", error);
+      alert("아이디 중복 체크 실패했습니다. 다시 확인해주세요");
+    }
+  }
+</script>
+</html>

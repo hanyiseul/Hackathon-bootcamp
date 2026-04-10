@@ -1,0 +1,309 @@
+/* ================= RESET ================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  height:100%;
+  overflow-x:hidden;
+}
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f6f8;
+  color:#333;
+
+  display:flex;
+  flex-direction:column;
+}
+
+/* 링크 기본 스타일 */
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+a:visited{
+  color:inherit;
+}
+
+/* ================= HEADER ================= */
+
+header{
+  width:100%;
+  height:70px;
+  background:#2f3542;
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 30px;
+
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:100;
+}
+
+header h1{
+  font-size:22px;
+}
+
+header .user{
+  font-weight:bold;
+}
+
+/* 로그아웃 */
+
+.logout{
+  height:36px;
+  padding:0 14px;
+  border:none;
+  background:#ff4757;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logout:hover{
+  background:#e84118;
+}
+
+/* ================= MAIN ================= */
+
+main{
+  flex:1;
+
+  width:100%;
+  max-width:900px;
+
+  margin:90px auto 80px auto;
+  padding:0 20px;
+}
+
+/* ================= BOARD ================= */
+
+.board_list{
+  list-style:none;
+}
+
+.board_list li{
+  background:white;
+  border-radius:8px;
+  margin-bottom:14px;
+  padding:18px;
+  position:relative;
+
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+
+  transition:0.2s;
+}
+
+.board_list li:hover{
+  transform:translateY(-2px);
+}
+
+.post_link{
+  display:block;
+}
+
+.info{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:#777;
+  margin-bottom:6px;
+}
+
+.title{
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* 삭제 버튼 */
+
+.btn_delete{
+  position:absolute;
+  right:15px;
+  bottom:15px;
+
+  padding:6px 12px;
+  border:none;
+  background:#ff4757;
+  color:white;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* ================= DETAIL ================= */
+
+.detail{
+  background:white;
+  border-radius:8px;
+  padding:30px;
+
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.detail .title{
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.detail .author{
+  font-size:14px;
+  color:#777;
+}
+
+.detail .date{
+  font-size:13px;
+  color:#999;
+  margin-bottom:20px;
+}
+
+.detail .content{
+  margin-top:20px;
+  line-height:1.6;
+}
+
+.detail .button_wrap {
+  display: none;
+}
+/* ================= FORM ================= */
+
+.form,
+.edit{
+  width:100%;
+  max-width:420px;
+  margin:80px auto;
+
+  background:white;
+  border-radius:8px;
+
+  padding:30px;
+
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.input_wrap,
+.edit > div{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+
+textarea{
+  height:120px;
+  resize:none;
+}
+
+/* ================= BUTTON ================= */
+
+.button_wrap{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  justify-content:center;
+}
+
+.button_wrap button,
+.button_wrap a{
+  padding:10px 16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* 로그인 */
+
+#btn_submit{
+  background:#3742fa;
+  color:white;
+}
+
+/* 회원가입 */
+
+.btn_signup{
+  background:#2ed573;
+  color:white;
+}
+
+/* 저장 */
+
+.btn_save{
+  background:#2ed573;
+  color:white;
+}
+
+/* 수정 */
+
+.btn_edit{
+  background:#1e90ff;
+  color:white;
+}
+
+/* 삭제 */
+
+.btn_remove{
+  background:#ff4757;
+  color:white;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  width:100%;
+  height:60px;
+
+  background:#2f3542;
+
+  position:fixed;
+  bottom:0;
+  left:0;
+}
+
+.footer_list{
+  list-style:none;
+
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+
+  height:100%;
+}
+
+.footer_list a{
+  color:white;
+  font-size:14px;
+}
+
+.footer_list a.on{
+  color:white;
+  font-size:20px;
+  font-weight: bold;
+}

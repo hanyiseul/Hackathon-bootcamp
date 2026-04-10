@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내회사</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/board">커뮤니티게시판</a></h1>
+    <div><span class="user" id="userId">{유저}</span>님</div>
+    <button type="button" id="logout" class="logout" onclick="localStorage.removeItem('myToken'); location.href='/';">로그아웃</button>
+  </header>
+  <main>
+    <section>
+      <ul class="board_list" id="board_list"></ul>
+    </section>
+  </main>
+  <footer>
+    <ul class="footer_list">
+      <li><a href="/board">전체게시글</a></li>
+      <li><a href="/company" class="on">우리회사</a></li>
+      <li><a href="/mypage">내글관리</a></li>
+      <li><a href="/write">등록</a></li>
+    </ul>
+  </footer>
+</body>
+<script type="module">
+  /**
+   * 파이프라인
+   * 1. 데이터 로딩 
+   *    - 로그인 인증 공통 스크립트 연결
+   *    - 우리회사 사람들만 볼 수 있는 게시판 
+   *      (members 테이블의 company들이 맞는 사람들의 board company 글...)
+   * 2. 데이터 수집 : 조회할 게시글 정보 조회
+   * 3. 데이터 처리 
+   *    - 로그아웃 처리
+   *    - 쿼리에 맞는 데이터들만 반영
+   *    - 게시글 상세 내용 이동
+   *    - 해당 게시글과 - detail - edit 화면 연결에 문제 없는지
+  */
+ 
+  // 공통 인증 스크립트 연결
+  import {checkAuth} from "/auth.js";
+
+  // 입력값 변수 정의
+  const userName = document.querySelector("#userId");
+  const list = document.querySelector("#board_list");
+
+   const init = async () => {
+    console.log("초기 함수 실행 확인")
+
+    // 인증 정보 가져오기
+    const user = await checkAuth(); // user 변수에 checkAuth에서 받은 결과값 담기
+    if(!user) return; // 인증 정보가 없을 경우 return
+    
+    // 유저 이름 설정
+    userName.textContent = `${user.userId}`
+
+    board(user); // 게시글 조회 함수 실행
+  }
+  init();
+
+  // 내회사 글 조회
+  const board = async (user) => {
+    // api 요청
+    const response = await fetch(`/api/company/${user.company}`); // list api 요청
+    const result = await response.json(); // 응답받은 결과를 변수에 저장
+    const data = result.data;
+
+    // 클라이언트에 뿌리기
+    let html =""; // 저장할 html 초기화
+    if (data) { // 만약 데이터가 있다면
+      data.map(item => {
+        html+= `
+          <li>
+            <a class="post_link" href="/detail?id=${item.id}">
+              <div class="info">
+                <div class="author">${item.name}</div>
+                <div class="date">${item.date}</div>
+              </div>
+              <div class="title">${item.title}</div>
+            </a>
+          </li>
+        `
+      });
+    }
+    list.innerHTML = html;
+  }
+</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <form class="form" action="" id="loginForm">
+    <div class="input_wrap">
+      <label for="input_id">아이디</label>
+      <input type="text" class="input" id="input_id">
+    </div>
+    <div class="input_wrap">
+      <label for="input-pwd">비밀번호</label>
+      <input type="password" class="input" id="input_pwd">
+    </div>
+    
+    <div class="button_wrap">
+      <button tpye="button" id="btn_submit" onclick="login(event);">로그인</button>
+      <a href="/signup" class="btn_signup">회원가입</a>
+    </div>
+  </form>
+</body>
+<script>
+  /**
+   * 파이프라인 (회원가입 로직 참고)
+   * 1. 데이터 로딩 : 클라이언트에 로그인 입력 폼 송출
+   * 2. 데이터 수집 
+   *    - 회원가입 버튼 (btn_submit) 클릭시 로그인 요청 처리 실행
+   *    - post 요청 보낼 입력한 값 수집
+   * 3. 데이터 처리
+   *    - 비동기통신을 사용하여 로그인 정보와 db 계정 처리
+   *    - db의 아이디 값과 입력한 비밀번호와 암호화된 비밀번호 대조
+   *    - 로그인 완료 후 전체 게시판으로 이동
+  */
+
+  // 입력값 변수 정의
+  const inputs = {
+    id: document.querySelector("#input_id"),
+    pwd: document.querySelector("#input_pwd"),
+  }
+  // 회원가입 요청 처리 함수
+  const login = async (e) => {
+    e.preventDefault(); // 입력폼 새로고침 방지
+
+    // 버튼 클릭시 입력된 값 가져오기
+    const user_id = inputs.id.value;
+    const user_pwd = inputs.pwd.value;
+
+    try {
+      const respose = await fetch ("/api/login", { // 해당 api 주소로 http 서버에 요청을 보냄
+        method: "post", // post 요청 보냄
+        headers: { "Content-Type": "application/json" }, // 이 요청은 json이람니다~ 알려줌
+        body: JSON.stringify({user_id, user_pwd}) // 요청할 내용을 json 형식으로 보냄
+      });
+
+      const data = await respose.json(); // 요청 완료된 데이터를 json으로 받음
+      
+      if (data.success) { // data의 성공메시지가 true일 경우
+        alert("로그인이 완료되었어요!");
+        localStorage.setItem("myToken", data.token); // 로컬스토리지에 토큰 저장
+        window.location.href = "/board"; // 회원가입 성공 후 로그인 페이지로 이동
+      } else { // data의 성공메시지가 false일 경우
+        alert("로그인이 실패하였어요! 다시 확인해주세요!");
+      }
+    } catch (error) { // 네트워크 오류 등의 데이터 요청 실패 경우
+      console.error("프론트 error:", error);
+      alert("로그인 중 오류가 발생되었습니다. 다시 시도해주세요!");
+    }
+  }
+</script>
+</html>
