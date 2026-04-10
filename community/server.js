@@ -72,6 +72,11 @@ app.post("/api/login", async (req,res) => { // 프론트단에서 요청받은 a
 
     // 로그인할 계정 조회 쿼리문
     const [rows] = await pool.execute('select * from members where user_id = ?', [user_id]); // user_id 기준으로 조회 (unique 키 설정으로 아이디 중복 가입이 안되기 때문에 무조건 하나만 뜰거임) - 배열로 조회되기 때문
+
+    if (rows.length === 0) {
+      return res.json({ success:false });
+    }
+
     const user = rows[0]; // 조회한 계정이 첫번째 객체
 
     // 로그인할 계정이 존재할 경우 입력한 비밀번호와 암호화된 비밀번호 대조 확인

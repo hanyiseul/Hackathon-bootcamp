@@ -33,7 +33,7 @@ create table board(
     title varchar(200) not null, -- 제목, 문자(최대 200문자) 빈값 금지 (null 금지)
     content text, -- 내용 텍스트
     type varchar(20) not null, -- 게시글 타입 설정
-    created_at  datetime default current_timestamp, -- 작성일, 기본값 값을 넣지 않으면 현재 시간을 자동으로 넣어줌
+    date  datetime default current_timestamp, -- 작성일, 기본값 값을 넣지 않으면 현재 시간을 자동으로 넣어줌
 	foreign key (user_id) references members(user_id) -- 작성자 아이디는 member(user_id 참조)
 );
 
