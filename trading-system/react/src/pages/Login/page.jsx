@@ -26,7 +26,7 @@ const Login = () => {
 
       // 전역상태로 관리할 데이터 저장
       setAuth({
-        user: {user_id}, // 계정 아이디 저장
+        user: data.user, // 계정 정보
         token: data.token, // 토큰 값 저장
       });
 

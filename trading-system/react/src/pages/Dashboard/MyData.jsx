@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 
-const MyData = ({user, total, rate}) => {
+const MyData = ({user, total, rate, balance}) => {
   return (
     <>
       <h1 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8">
@@ -12,7 +12,7 @@ const MyData = ({user, total, rate}) => {
           <h2 className="text-sm text-gray-400 mb-2">잔고</h2>
           <p className="text-2xl sm:text-3xl font-semibold">
             <span className="text-gray-400 text-base sm:text-lg mr-1">₩</span>
-            {user?.balance}
+            {balance}
           </p>
         </div>
         <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">

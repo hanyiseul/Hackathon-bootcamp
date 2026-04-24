@@ -29,7 +29,7 @@ export const getTrades = async (user_id) => {
 };
 
 // 매수 api
-export const buyStock = async (user_id, stock_id, quantity) => {
+export const buyStock = async (user_id, stock_id, quantity) => { // user_id, stock_id, quantity에 해당하는 데이터 요청
   const res = await fetch("/api/buy", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -39,7 +39,7 @@ export const buyStock = async (user_id, stock_id, quantity) => {
 };
 
 // 매도 api
-export const sellStock = async (user_id, stock_id, quantity) => {
+export const sellStock = async (user_id, stock_id, quantity) => { // user_id, stock_id, quantity에 해당하는 데이터 요청
   const res = await fetch("/api/sell", {
     method: "POST",
     headers: {"Content-Type": "application/json"},

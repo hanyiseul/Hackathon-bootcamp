@@ -66,9 +66,15 @@ app.post("/api/login", async(req, res) => {
       return res.json({ success: false, message: "비밀번호 틀림" });
     }
 
-    if(user && isMatch) {
+    if(user && isMatch) { // 유저 정보가 있고 비밀번호 일치할 때
       const token = jwt.sign({user_id: user.user_id, balance: user.balance}, JWT_SECRET, {expiresIn: '12h'}); // jwt 토큰 생성 (id값이랑 잔고 보내기, 유효시간 12시간)
-      return res.json({success: true, token}); // 로그인 성공
+      return res.json({
+        success: true, 
+        user: {
+          user_id: user.user_id,
+          balance: user.balance
+        },
+        token}); // 로그인 성공
     }
   } catch (error) {
     console.error(error);
@@ -94,23 +100,23 @@ app.get("/api/verify", (req, res) => {
 app.get("/api/mydata", async (req, res) => {
   try {
     const { user_id } = req.query;
-    // 총자산, 수익률
+    // 유저 정보를 기준으로 보유 종목과 거래 내역을 조인하여 총 자산과 수익률 계산
     const sql = `
       SELECT 
-        u.balance,
-        (u.balance + IFNULL(SUM(h.quantity * s.price), 0)) AS total,
-        IFNULL(SUM(t.quantity * t.price), 0) AS total_invest,
-        CASE 
-          WHEN IFNULL(SUM(t.quantity * t.price), 0) = 0 THEN 0
+        u.balance, -- 현재 잔금 잔고
+        (u.balance + IFNULL(SUM(h.quantity * s.price), 0)) AS total, -- 현재 잔고 + 보유 종목의 총 가치
+        IFNULL(SUM(t.quantity * t.price), 0) AS total_invest, -- 총 투자금 (매수 금액 합계)
+        CASE -- 투자금이 0이면 수익률 0 / 아니면 (현재자산 - 투자금) / 투자금 * 100
+          WHEN IFNULL(SUM(t.quantity * t.price), 0) = 0 THEN 0 
           ELSE (
             (u.balance + IFNULL(SUM(h.quantity * s.price), 0) - IFNULL(SUM(t.quantity * t.price), 0))
             / IFNULL(SUM(t.quantity * t.price), 0)
           ) * 100
         END AS rate
       FROM users u
-      LEFT JOIN holdings h ON u.user_id = h.user_id 
-      LEFT JOIN stocks s ON h.stock_id = s.id
-      LEFT JOIN trades t ON u.user_id = t.user_id AND t.type = 'buy' 
+      LEFT JOIN holdings h ON u.user_id = h.user_id  -- holdings 테이블에서 user_id로 보유 종목 정보 가져오기
+      LEFT JOIN stocks s ON h.stock_id = s.id -- stocks 테이블에서 stock_id로 주식 가격 정보 가져오기
+      LEFT JOIN trades t ON u.user_id = t.user_id AND t.type = 'buy' -- trades 테이블에서 user_id로 매수 거래 정보 가져오기
       WHERE u.user_id = ?
       GROUP BY u.user_id; 
     `;

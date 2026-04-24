@@ -80,7 +80,7 @@ INSERT INTO holdings (user_id, stock_id, quantity, avg_price) VALUES
 ('test', 2, 5, 52000),
 ('test', 3, 2, 190000);
 
--- 거래 내역 더미 데이터alter
+-- 거래 내역 더미 데이터
 INSERT INTO trades (user_id, stock_id, type, quantity, price, total, created_at) VALUES
 ('test', 1, 'buy', 10, 68000, 680000, NOW() - INTERVAL 3 DAY),
 ('test', 2, 'buy', 5, 52000, 260000, NOW() - INTERVAL 2 DAY),

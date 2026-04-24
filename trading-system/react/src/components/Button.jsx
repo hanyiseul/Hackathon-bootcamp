@@ -5,7 +5,7 @@ const Button = ({
   disabled = false,
   variant = "primary",
   className = "",
-  ...props
+  ...props // 넘어온 나머지 속성들을 전부 전달 (확장성 막으려면 생략하고 사용할 속성들만 명시하기)
 }) => {
   const baseStyle = `
     py-3

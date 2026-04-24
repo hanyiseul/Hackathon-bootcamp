@@ -6,7 +6,7 @@ import { buyStock, sellStock } from "@/api/tradeAPI";
 import StockList from "./StockList";
 import MyData from "./MyData";
 import TradeList from "./TradeList";
-import HoldingList from "./holdingList";
+import HoldingList from "./HoldingList";
 
 const Dashboard = () => {
   // 전역상태 호출
@@ -14,6 +14,7 @@ const Dashboard = () => {
   const user = useAuthStore((state) => state.user);
 
   // 데이터 상태 변경 관리
+  const [balance, setBalance] = useState(0); // 잔고 관리 변수
   const [total, setTotal] = useState(0); // 총 자산 관리 변수
   const [rate, setRate] = useState(0); // 수익률 변수
   const [stocks, setStocks] = useState([]); // 종목 변동값 받을 변수
@@ -21,12 +22,10 @@ const Dashboard = () => {
   const [holdings, setHoldings] = useState([]); // 보유종목 변수
   const [trades, setTrades] = useState([]); // 거래내역 변수
 
-  if (!token) { // 토큰 없으면 로그인으로 이동
-    return <Navigate to="/" />;
-  }
-
   const fetchMydata = async () => { // 내 자산 조회
     const data = await getMydata(user.user_id);
+    console.log(user.balance);
+    setBalance(user.balance);
     setTotal(data?.total ?? 0);
     setRate(data?.rate ?? 0);
   };
@@ -114,9 +113,13 @@ const Dashboard = () => {
     fetchMydata();
   };
 
+  if (!token || !user) { // 토큰, 계정정보 없으면 로그인으로 이동
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 mt-14 bg-gray-50 min-h-screen">
-      <MyData user={user} total={total} rate={rate}/>
+      <MyData user={user} total={total} rate={rate} balance={balance} />
       <StockList stocks={stocks} prevStocks={prevStocks} onBuy={handleBuy} onSell={handleSell}/>
       <HoldingList holdings={holdings}/>
       <TradeList trades={trades}/>
