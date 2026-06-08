@@ -539,6 +539,7 @@ CustomUserDetails와 CustomUserDetailsService를 구현하며 Spring Security의
 GCP Compute Engine VM에 프로젝트를 배포하고 PM2를 활용하여 프로세스를 관리하였다.
 
 또한 Cloudflare Tunnel을 이용하여 외부 네트워크에서 서비스에 접근할 수 있도록 구성하는 경험을 할 수 있었다.
+
 ---
 
 ## 😢 Bad
