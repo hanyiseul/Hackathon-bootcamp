@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="post-container">
+    <h1 class="logo">MiniSNS</h1>
+    <form action="/create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="image" required>
+        </div>
+        <div class="form-group">
+            <textarea name="content" placeholder="게시글 내용을 입력하세요" rows="5"></textarea>
+        </div>
+        <button type="submit" class="signup-btn">게시글 등록</button>
+    </form>
+
+</div>
+
+</body>
+</html>

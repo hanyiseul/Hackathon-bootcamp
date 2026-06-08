@@ -1,0 +1,29 @@
+-- 데이터베이스 생성
+CREATE DATABASE snsdb
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+-- 데이터베이스 선택
+USE snsdb;
+
+-- 회원 테이블 생성
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 게시글 테이블 생성
+CREATE TABLE posts (
+   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+   content TEXT NOT NULL,
+   imagePath VARCHAR(255),
+   createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   userId VARCHAR(50) NOT NULL
+);
+
+-- 확인
+SHOW TABLES;
+
+DESC users;

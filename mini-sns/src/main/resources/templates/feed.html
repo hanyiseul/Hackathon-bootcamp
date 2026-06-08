@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniSNS</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="header">
+        <h2>MiniSNS</h2>
+        <div th:if="${loginUserId != null}">
+            <p><span th:text="${loginUserId}"></span>님</p>
+            <div th:if="${loginUserId != null}">
+                <form action="/logout" method="post">
+                    <button type="submit" class="logout-btn">로그아웃</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <div class="feed-container">
+        <div class="post-card" th:each="post : ${posts}">
+            <div class="post-user">
+                <span th:text="${post.userId}"></span>
+
+                <div th:if="${post.userId == loginUserId}">
+                    <a th:href="@{/edit/{id}(id=${post.id})}">수정</a>
+
+                    <form th:action="@{/delete/{id}(id=${post.id})}"
+                          method="post"
+                          style="display:inline;">
+                        <button type="submit">삭제</button>
+                    </form>
+                </div>
+            </div>
+            <img th:src="${post.imagePath}" alt="게시글 이미지" class="post-image">
+            <div class="post-content">
+                <span th:text="${post.content}"></span>
+            </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(posts)}" class="empty-feed">
+            아직 등록된 게시글이 없습니다.
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="/">전체 피드</a>
+        <a href="/my-feed">내 피드</a>
+        <div th:if="${loginUserId != null}">
+            <a href="/create">작성</a>
+        </div>
+        <div th:if="${loginUserId == null}">
+            <a href="/login">로그인</a>
+        </div>
+    </footer>
+</body>
+</html>
