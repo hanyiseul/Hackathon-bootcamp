@@ -21,7 +21,7 @@ http://localhost:3100
 
 | 로그인                       | 회원가입                      | 전체 피드                   | 내 피드                       | 게시글 작성                    | 게시글 수정                  |
 |---------------------------|---------------------------|-------------------------|----------------------------|---------------------------|-------------------------|
-| ![](./screenshot/create.png) | ![](./screenshot/signup.png) | ![](./screenshot/feed.png) | ![](./screenshot/my-feed.png) | ![](./screenshot/create.png) | ![](./screenshot/edit.png) |
+| ![](./screenshots/create.png) | ![](./screenshots/signup.png) | ![](./screenshots/feed.png) | ![](./screenshots/my-feed.png) | ![](./screenshots/create.png) | ![](./screenshots/edit.png) |
 
 ---
 
