@@ -275,8 +275,9 @@ View(Thymeleaf)
 
 ```bash
 ./gradlew build
+```
 
---
+---
 
 # 🧠 Troubleshooting
 
