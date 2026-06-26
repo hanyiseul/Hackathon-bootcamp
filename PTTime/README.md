@@ -24,7 +24,7 @@ http://localhost:3000
 
 | nginx 흐름             | redis 회원 생성 | redis 남은 횟수 조회 | redis 로그인 | redis 예약하기 |
 |----------------------|-------------|----------------|-----------|------------|
-| screenshot/nginx.jpg | screenshot/redis_create.jpg | screenshot/redis_log.jpg | screenshot/redis_login.jpg | screenshot/redis_reserv.jpg |
+| ![](./screenshot/nginx.jpg) | ![](./screenshot/nginx.jpg)  | ![](./screenshot/redis_log.jpg)| ![](./screenshot/redis_login.jpg) | ![](./screenshot/redis_reserv.jpg)|
 
 ---
 
