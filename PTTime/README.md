@@ -1,19 +1,4 @@
-Nginx 흐름
-    브라우저 -> localhost:3000 -> Nginx
-    User-Agent가 pc -> 3001(Admin)
-    User-Agent가 Mobile -> 3002(View)
 
-/action - 3003(Action)
-/api/* - 3004(Spring)
-
-
-Redis
-예약 - Spring - 예약 성공 - Redis cache 삭제 - 다음 조회 - MariaDB - Redis 재생성
-
-
-
-트러블슈팅
-새로고침하면 로그인화면이 잠깐 떴다가 사라짐
 
 # 📱 PTTime - PT 예약 관리 시스템
 
